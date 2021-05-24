@@ -1,12 +1,14 @@
 import scrapy
+from scrapy_redis.spiders import RedisCrawlSpider
 from recruit.items import RecruitItem
 import re
 
-class Job51Spider(scrapy.Spider):
+class Job51Spider(RedisCrawlSpider):
     name = 'job51'
     allowed_domains = ['jobs.51job.com']
-    start_urls = ['https://jobs.51job.com/all/p1']
-
+    # start_urls = ['https://jobs.51job.com/all/p1']
+    # 将start_url插入redis,键为fang_url(lpush job51:start_urls https://jobs.51job.com/all/p1/)
+    redis_key = "job51:start_urls"
     def parse(self, response):
         print(response.url)
         url = response.url.split('/')

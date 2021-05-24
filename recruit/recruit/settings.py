@@ -12,6 +12,18 @@ BOT_NAME = 'recruit'
 SPIDER_MODULES = ['recruit.spiders']
 NEWSPIDER_MODULE = 'recruit.spiders'
 
+# 使用scrapy-redis里的去重组件，不使用scrapy的默认去重，用来将url去重
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+# 使用scrapy-redis里的调度器组件，不使用scrapy的默认的调度器
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# 允许暂停，Redis请求记录不丢失
+SCHEDULER_PERSIST = True
+
+# 指定要存储的redis数据库的主机IP
+REDIS_HOST = '192.168.56.128'  # 远端的ip地址
+
+# 指定redis数据库主机的端口
+REDIS_PORT = 6379
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'recruit (+http://www.yourdomain.com)'
